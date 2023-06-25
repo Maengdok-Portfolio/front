@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:20-alpine
+FROM node:16-alpine
 
 # Set the working directory to /app
 WORKDIR /app
@@ -8,14 +8,10 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install the dependencies
-RUN npm install
+RUN yarn install
 
 # Copy the rest of the app's files to the container
 COPY . .
 
-# Build the app
-RUN npm run build
-
-# Serve the app using the serve package
-RUN npm install -g serve
-CMD ["serve", "-s", "build", "-l", "80"]
+# Start the development server
+CMD ["yarn", "start"]
